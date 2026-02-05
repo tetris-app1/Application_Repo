@@ -14,3 +14,15 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 3- Redis: In-memory database for managing game state.
 
 4- ArgoCD: Continuous deployment configuration to automate updates.
+
+# Repository Structure
+.
+├── k8s_files/
+│   ├── backend-deployment.yaml
+│   ├── backend-service.yaml
+│   ├── frontend-deployment.yaml
+│   ├── frontend-service.yaml
+│   ├── redis-deployment.yaml
+│   └── redis-service.yaml
+└── argocd/
+    └── tetris-app.yaml
