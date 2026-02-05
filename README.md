@@ -25,7 +25,7 @@ prep>``` text .
 │   ├── 📄 redis-deployment.yaml
 │   └── 📄 redis-service.yaml
 └── 📁 argocd
-    └── 📄 tetris-app.yaml ``` </pre
+    └── 📄 tetris-app.yaml ``` </prep
 
 
 
