@@ -18,8 +18,8 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 # Repository Structure
 <prep>```  
 .
-├── 📁 k8s_files <tr>
-│   ├── 📄 backend-deployment.yaml
+├── 📁 k8s_files <br>
+│   ├── 📄 backend-deployment.yaml <br>
 │   ├── 📄 backend-service.yaml
 │   ├── 📄 frontend-deployment.yaml
 │   ├── 📄 frontend-service.yaml
