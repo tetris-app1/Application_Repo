@@ -174,15 +174,15 @@ kubectl get svc
 1- ⚠️ ECR Access
     Ensure your Kubernetes cluster can pull images from Amazon ECR:
       
-   Configure imagePullSecrets
+   - Configure imagePullSecrets
    
-   Or use IAM Roles for Service Accounts (IRSA) on EKS
+   - Or use IAM Roles for Service Accounts (IRSA) on EKS
 
 
 2- ⚠️ ConfigMaps
     Make sure these ConfigMaps exist before deployment:
     
-    - backend-config
+   - backend-config
 
    - frontend-config
 
