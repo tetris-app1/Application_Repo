@@ -86,22 +86,22 @@ This ensures automatic synchronization of any updates pushed to the k8s_files fo
 
 # Deployment Steps
 
-1. clone the repository
+1. **clone the repository**
 ```sh
     git clone https://github.com/tetris-app1/Application_Repo.git
     cd Application_Repo
 ```
 
-2. Apply Kubernetes manifests manually (optional)
+2. **Apply Kubernetes manifests manually (optional)**
 ```sh
     kubectl apply -f k8s_files/
 ```
 
-3. Deploy using ArgoCD
+3. **Deploy using ArgoCD**
 ```sh
    kubectl apply -f argocd/tetris-app.yaml
 ```
-3. Check status
+4. **Check status**
 ```sh
   kubectl get pods
   kubectl get svc
@@ -115,7 +115,7 @@ This ensures automatic synchronization of any updates pushed to the k8s_files fo
 
 3. Update the repository URL in tetris-app.yaml if your repo changes.
 
-#License
+# License
 
 This project is open-source. Use and modify as needed
 
