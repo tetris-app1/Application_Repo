@@ -140,6 +140,7 @@ Key Configuration
     🛠️ Self Heal	          Enabled
 
 ✅ Any change pushed to k8s_files/
+
 ➡️ Automatically applied to the cluster
 
 
@@ -172,8 +173,9 @@ kubectl get svc
 
 1- ⚠️ ECR Access
     Ensure your Kubernetes cluster can pull images from Amazon ECR:
-        Configure imagePullSecrets
-        Or use IAM Roles for Service Accounts (IRSA) on EKS
+      
+   Configure imagePullSecrets
+   Or use IAM Roles for Service Accounts (IRSA) on EKS
 
 
 2- ⚠️ ConfigMaps
