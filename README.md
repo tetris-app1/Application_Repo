@@ -1,121 +1,188 @@
-# Application_Repo
-Application Repo for K8S files
+# 🎮 Application_Repo
+   Kubernetes Deployment for Tetris Full-Stack Application
 
-# Welcome to the Tetris Kubernetes Deployment repository! 🎮
+ 🚀 Welcome to the Tetris Kubernetes Deployment repository!
+    This project demonstrates how to deploy a full-stack Tetris application on Kubernetes using best practices such as Deployments, Services, ConfigMaps, Redis, and ArgoCD for GitOps-based continuous deployment.
+    Any change pushed to this repository is automatically synchronized to the Kubernetes cluster using ArgoCD.
 
-This project demonstrates how to deploy a full-stack Tetris application on Kubernetes using Deployments, Services, and Redis. It also integrates ArgoCD for automated continuous deployment, ensuring that any updates pushed to the repository are automatically applied to the cluster.
+# 📌 Table of Contents
 
-# The project includes:
+1. 🧠 Project Overview
 
-1- Frontend: React-based UI served via a Kubernetes Deployment.
+2. 🧱 Architecture Components
 
-2- Backend: Node.js API served via a Kubernetes Deployment.
+3. 🗂️ Repository Structure
 
-3- Redis: In-memory database for managing game state.
+4. ☸️ Kubernetes Resources
 
-4- ArgoCD: Continuous deployment configuration to automate updates.
+   - Backend
+   - Frontend
+   - Redis
 
-# Repository Structure
-```text  
-.
-├── 📁 k8s_files 
-│   ├── 📄 backend-deployment.yaml 
-│   ├── 📄 backend-service.yaml
-│   ├── 📄 frontend-deployment.yaml
-│   ├── 📄 frontend-service.yaml
-│   ├── 📄 redis-deployment.yaml
-│   └── 📄 redis-service.yaml
-└── 📁 argocd
-    └── 📄 tetris-app.yaml
+5- 🔁 ArgoCD Application
+
+6- 🚀 Deployment Steps
+
+7- 🔐 Important Notes
+
+
+# 🧠 Project Overview
+
+ This repository contains Kubernetes manifests for deploying:
+
+- 🎨 Frontend: React-based Tetris UI
+
+- 🧠 Backend: Node.js API for game logic
+
+- 🗄️ Redis: In-memory datastore for game state
+
+- 🔁 ArgoCD: GitOps continuous deployment tool
+
+ The project follows a GitOps workflow, where Kubernetes state is fully managed through Git.
+
+
+
+# 🧱 Architecture Components
+```text
+        User
+         │
+         ▼
+        Frontend Service (NodePort / ClusterIP)
+         │
+         ▼
+        Backend Service
+         │
+         ▼
+        Redis
 ```
 
+- Frontend communicates with Backend via internal Kubernetes Service
+
+- Backend stores game state in Redis
+
+- ArgoCD watches GitHub and syncs changes automatically
+
+# 🗂️ Repository Structure
+
+```text
+        .
+        ├── 📁 k8s_files
+        │   ├── 📄 backend-deployment.yaml
+        │   ├── 📄 backend-service.yaml
+        │   ├── 📄 frontend-deployment.yaml
+        │   ├── 📄 frontend-service.yaml
+        │   ├── 📄 redis-deployment.yaml
+        │   └── 📄 redis-service.yaml
+        │
+        └── 📁 argocd
+            └── 📄 tetris-app.yaml
+```
+# ☸️ Kubernetes Resources
+
+1- **🧠 Backend Deployment**
+
+    🐳 Image:
+    101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-backend:13
+    
+    📦 Replicas: 3
+    
+    🔌 Container Port: 4000
+    
+    ⚙️ Configuration:
+    Loaded from backend-config ConfigMap
+    
+    ❤️ Readiness Probe:
+    TCP check on port 4000
+
+
+2- **🎨 Frontend Deployment**
+
+    🐳 Image:
+    101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-frontend:7
+    
+    📦 Replicas: 3
+    
+    🌐 Container Port: 80
+    
+    ⚙️ Configuration:
+    Loaded from frontend-config ConfigMap
+    
+    ❤️ Readiness Probe:
+    HTTP GET / on port 80
+
+3- **🗄️ Redis Deployment**
+
+    🐳 Image: redis:7.0
+    
+    📦 Replicas: 1
+    
+    🔌 Port: 6379
+    
+    ❤️ Readiness Probe:
+    TCP check on port 6379
+
+
+# 🔁 ArgoCD Application
+
+📍 File: argocd/tetris-app.yaml
+
+**This file defines an ArgoCD Application that continuously deploys the app.**
+
+Key Configuration
+
+    Field                           	Value
+    📦 Repository	          https://github.com/tetris-app1/Application_Repo
+    📁 Path                   k8s_files
+    🌱 Revision	              HEAD
+    🧭 Namespace	          default
+    🔄 Sync Policy	          Automated
+    🧹 Prune	              Enabled
+    🛠️ Self Heal	          Enabled
+
+✅ Any change pushed to k8s_files/
+➡️ Automatically applied to the cluster
 
 
 
+# 🚀 Deployment Steps
 
-# Kubernetes Deployments
-1.  **Backend**
-
-Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-backend:13
-
-Port: 4000
-
-Replicas: 3
-
-Configuration: Loaded from backend-config ConfigMap
-
-Readiness Probe: TCP check on port 4000
-
-2.  **Frontend**
-
-Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-frontend:7
-
-Port: 80
-
-Replicas: 3
-
-Configuration: Loaded from frontend-config ConfigMap
-
-Readiness Probe: HTTP GET / on port 80
-
-3. **Redis**
-
-Image: redis:7.0
-
-Port: 6379
-
-Replicas: 1
-
-Readiness Probe: TCP check on port 6379
-
-4.  **ArgoCD Application**
-
-The argocd/tetris-app.yaml defines an ArgoCD Application:
-
-Repository URL: https://github.com/tetris-app1/Application_Repo
-
-Path: k8s_files
-
-Target Revision: HEAD
-
-Namespace: default
-
-Sync Policy: Automated with prune and selfHeal enabled
-
-This ensures automatic synchronization of any updates pushed to the k8s_files folder in the repository.
-
-# Deployment Steps
-
-1️⃣. **clone the repository**
+**1️⃣ Clone the repository**
 ```sh
-    git clone https://github.com/tetris-app1/Application_Repo.git
-    cd Application_Repo
+git clone https://github.com/tetris-app1/Application_Repo.git
+cd Application_Repo
 ```
 
-2️⃣. **Apply Kubernetes manifests manually (optional)**
+**2️⃣ (Optional) Manual Kubernetes Deployment**
 ```sh
-    kubectl apply -f k8s_files/
+kubectl apply -f k8s_files/
 ```
 
-3️⃣. **Deploy using ArgoCD**
+**3️⃣ Deploy using ArgoCD (Recommended)**
 ```sh
-   kubectl apply -f argocd/tetris-app.yaml
+kubectl apply -f argocd/tetris-app.yaml
 ```
-4️⃣. **Check status**
+
+**4️⃣ Verify Deployment**
 ```sh
-  kubectl get pods
-  kubectl get svc
+kubectl get pods
+kubectl get svc
 ```
 
-# Notes
+# 🔐 Important Notes
 
-1. Make sure your Kubernetes cluster can pull images from ECR. You may need to configure imagePullSecrets.
+1- ⚠️ ECR Access
+    Ensure your Kubernetes cluster can pull images from Amazon ECR:
+        Configure imagePullSecrets
+        Or use IAM Roles for Service Accounts (IRSA) on EKS
 
-2. Ensure the backend-config and frontend-config ConfigMaps exist in the cluster before deploying.
 
-3. Update the repository URL in tetris-app.yaml if your repo changes.
+2- ⚠️ ConfigMaps
+    Make sure these ConfigMaps exist before deployment:
+        backend-config
+        frontend-config
 
-# License
-
-This project is open-source. Use and modify as needed
-
+3- ⚠️ Repository URL
+    If you fork or rename the repo, update:
+```sh
+        repoURL: <your-new-repo>
+```
