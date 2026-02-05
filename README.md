@@ -182,9 +182,9 @@ kubectl get svc
 2- ⚠️ ConfigMaps
     Make sure these ConfigMaps exist before deployment:
     
-   backend-config
+    - backend-config
 
-   frontend-config
+   - frontend-config
 
 3- ⚠️ Repository URL
     If you fork or rename the repo, update:
