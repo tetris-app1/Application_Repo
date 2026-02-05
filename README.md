@@ -117,5 +117,5 @@ This ensures automatic synchronization of any updates pushed to the k8s_files fo
 
 #License
 
-    This project is open-source. Use and modify as nee
+This project is open-source. Use and modify as needed
 
