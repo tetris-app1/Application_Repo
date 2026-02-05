@@ -34,7 +34,7 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 
 
 # Kubernetes Deployments
-# Backend
+1.  Backend
 
 Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-backend:13
 
@@ -46,7 +46,7 @@ Configuration: Loaded from backend-config ConfigMap
 
 Readiness Probe: TCP check on port 4000
 
-# Frontend
+2.  Frontend
 
 Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-frontend:7
 
@@ -58,7 +58,7 @@ Configuration: Loaded from frontend-config ConfigMap
 
 Readiness Probe: HTTP GET / on port 80
 
-# Redis
+3. Redis
 
 Image: redis:7.0
 
@@ -68,7 +68,7 @@ Replicas: 1
 
 Readiness Probe: TCP check on port 6379
 
-# ArgoCD Application
+4.  ArgoCD Application
 
 The argocd/tetris-app.yaml defines an ArgoCD Application:
 
@@ -83,3 +83,39 @@ Namespace: default
 Sync Policy: Automated with prune and selfHeal enabled
 
 This ensures automatic synchronization of any updates pushed to the k8s_files folder in the repository.
+
+# Deployment Steps
+
+1. clone the repository
+```sh
+    git clone https://github.com/tetris-app1/Application_Repo.git
+    cd Application_Repo
+```
+
+2. Apply Kubernetes manifests manually (optional)
+```sh
+    kubectl apply -f k8s_files/
+```
+
+3. Deploy using ArgoCD
+```sh
+   kubectl apply -f argocd/tetris-app.yaml
+```
+3. Check status
+```sh
+  kubectl get pods
+  kubectl get svc
+```
+
+# Notes
+
+1. Make sure your Kubernetes cluster can pull images from ECR. You may need to configure imagePullSecrets.
+
+2. Ensure the backend-config and frontend-config ConfigMaps exist in the cluster before deploying.
+
+3. Update the repository URL in tetris-app.yaml if your repo changes.
+
+#License
+
+    This project is open-source. Use and modify as nee
+
