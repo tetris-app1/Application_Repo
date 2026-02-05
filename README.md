@@ -34,7 +34,7 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 
 
 # Kubernetes Deployments
-1.  Backend
+1.  **Backend**
 
 Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-backend:13
 
@@ -46,7 +46,7 @@ Configuration: Loaded from backend-config ConfigMap
 
 Readiness Probe: TCP check on port 4000
 
-2.  Frontend
+2.  **Frontend**
 
 Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-frontend:7
 
@@ -58,7 +58,7 @@ Configuration: Loaded from frontend-config ConfigMap
 
 Readiness Probe: HTTP GET / on port 80
 
-3. Redis
+3. **Redis**
 
 Image: redis:7.0
 
@@ -68,7 +68,7 @@ Replicas: 1
 
 Readiness Probe: TCP check on port 6379
 
-4.  ArgoCD Application
+4.  **ArgoCD Application**
 
 The argocd/tetris-app.yaml defines an ArgoCD Application:
 
