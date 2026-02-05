@@ -16,7 +16,8 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 4- ArgoCD: Continuous deployment configuration to automate updates.
 
 # Repository Structure
-<prep>``` text .
+<prep>```  
+.
 ├── 📁 k8s_files
 │   ├── 📄 backend-deployment.yaml
 │   ├── 📄 backend-service.yaml
@@ -25,7 +26,8 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 │   ├── 📄 redis-deployment.yaml
 │   └── 📄 redis-service.yaml
 └── 📁 argocd
-    └── 📄 tetris-app.yaml ```</prep>
+    └── 📄 tetris-app.yaml
+    ```</prep>
 
 
 
