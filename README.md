@@ -16,13 +16,58 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 4- ArgoCD: Continuous deployment configuration to automate updates.
 
 # Repository Structure
-.
-├── k8s_files/
-│   ├── backend-deployment.yaml
-│   ├── backend-service.yaml
-│   ├── frontend-deployment.yaml
-│   ├── frontend-service.yaml
-│   ├── redis-deployment.yaml
-│   └── redis-service.yaml
-└── argocd/
+<pre> ```text . ├── k8s_files/ │ ├── backend-deployment.yaml │ ├── backend-service.yaml │ ├── frontend-deployment.yaml │ ├── frontend-service.yaml │ ├── redis-deployment.yaml │ └── redis-service.yaml └── argocd/ └── tetris-app.yaml ``` </pre>
     └── tetris-app.yaml
+
+
+
+# Kubernetes Deployments
+# Backend
+
+Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-backend:13
+
+Port: 4000
+
+Replicas: 3
+
+Configuration: Loaded from backend-config ConfigMap
+
+Readiness Probe: TCP check on port 4000
+
+# Frontend
+
+Image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-frontend:7
+
+Port: 80
+
+Replicas: 3
+
+Configuration: Loaded from frontend-config ConfigMap
+
+Readiness Probe: HTTP GET / on port 80
+
+# Redis
+
+Image: redis:7.0
+
+Port: 6379
+
+Replicas: 1
+
+Readiness Probe: TCP check on port 6379
+
+# ArgoCD Application
+
+The argocd/tetris-app.yaml defines an ArgoCD Application:
+
+Repository URL: https://github.com/tetris-app1/Application_Repo
+
+Path: k8s_files
+
+Target Revision: HEAD
+
+Namespace: default
+
+Sync Policy: Automated with prune and selfHeal enabled
+
+This ensures automatic synchronization of any updates pushed to the k8s_files folder in the repository.
