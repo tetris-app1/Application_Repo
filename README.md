@@ -27,7 +27,7 @@ This project demonstrates how to deploy a full-stack Tetris application on Kuber
 │   └── 📄 redis-service.yaml
 └── 📁 argocd
     └── 📄 tetris-app.yaml
-    ```
+
 
 
 
