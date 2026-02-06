@@ -14,9 +14,18 @@ spec:
       labels:
         app: backend
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: backend
+              topologyKey: kubernetes.io/hostname
       containers:
       - name: backend
-        image: 101561167685.dkr.ecr.us-east-1.amazonaws.com/tetris-backend:13
+        image: shymaa145/tetris-backend:10
         ports:
         - containerPort: 4000
         envFrom:
@@ -27,5 +36,3 @@ spec:
             port: 4000
           initialDelaySeconds: 5
           periodSeconds: 10
-
-          
