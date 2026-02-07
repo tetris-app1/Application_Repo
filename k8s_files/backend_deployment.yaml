@@ -25,7 +25,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: backend
-        image: 268811324951.dkr.ecr.eu-north-1.amazonaws.com/tetris-repo-backend:7
+        image: 268811324951.dkr.ecr.eu-north-1.amazonaws.com/tetris-repo-backend:8
         ports:
         - containerPort: 4000
         envFrom:
