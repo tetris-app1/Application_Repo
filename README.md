@@ -39,9 +39,9 @@
 - 🔁 **Install ArgoCD via Helm:** The playbook adds the ArgoCD Helm repository, installs ArgoCD in the argocd namespace, and patches the argocd-server            service to LoadBalancer.
 
 - 🔐 **Configure ArgoCD repository secrets securely:**
-          - All sensitive data (GitHub tokens, etc.) are stored in HashiCorp Vault.
-          - Ansible fetches the GitHub token from Vault at runtime.
-          - A Kubernetes secret is created in ArgoCD with the repository credentials.
+     - All sensitive data (GitHub tokens, etc.) are stored in HashiCorp Vault.
+     - Ansible fetches the GitHub token from Vault at runtime.
+     - A Kubernetes secret is created in ArgoCD with the repository credentials.
 
 - 🗂️ **Create ArgoCD ApplicationSet:**
 
