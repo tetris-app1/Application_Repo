@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: backend-config
 data:
-  REDIS_HOST: redis
+  REDIS_HOST: redis.default.svc.cluster.local
   REDIS_PORT: "6379"
