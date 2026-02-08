@@ -1,5 +1,5 @@
 # 🎮 Application_Repo
-   Kubernetes Deployment for Tetris Full-Stack Application
+   Tetris Kubernetes Deployment with ArgoCD
 
  🚀 Welcome to the Tetris Kubernetes Deployment repository!
     This project demonstrates how to deploy a full-stack Tetris application on Kubernetes using best practices such as Deployments, Services, ConfigMaps, Redis, and ArgoCD for GitOps-based continuous deployment.
@@ -30,13 +30,24 @@
 
  This repository contains Kubernetes manifests for deploying:
 
-- 🎨 Frontend: React-based Tetris UI
+- 🎨 **Frontend**: React-based Tetris UI
 
-- 🧠 Backend: Node.js API for game logic
+- 🧠 **Backend**: Node.js API for game logic
 
-- 🗄️ Redis: In-memory datastore for game state
+- 🗄️ **Redis**: In-memory datastore for game state
 
-- 🔁 ArgoCD: GitOps continuous deployment tool
+- 🔁 **Install ArgoCD via Helm:** The playbook adds the ArgoCD Helm repository, installs ArgoCD in the argocd namespace, and patches the argocd-server            service to LoadBalancer.
+
+- 🔐 **Configure ArgoCD repository secrets securely:**
+          - All sensitive data (GitHub tokens, etc.) are stored in HashiCorp Vault.
+          - Ansible fetches the GitHub token from Vault at runtime.
+          - A Kubernetes secret is created in ArgoCD with the repository credentials.
+
+- 🗂️ **Create ArgoCD ApplicationSet:**
+
+    - The Application.yaml defines an ApplicationSet that automatically discovers and syncs all directories in the Git repository (apps/*).
+
+    - Sync policy is automated with prune and selfHeal enabled.
 
  The project follows a GitOps workflow, where Kubernetes state is fully managed through Git.
 
@@ -65,17 +76,22 @@
 # 🗂️ Repository Structure
 
 ```text
-        .
-        ├── 📁 k8s_files
-        │   ├── 📄 backend-deployment.yaml
-        │   ├── 📄 backend-service.yaml
-        │   ├── 📄 frontend-deployment.yaml
-        │   ├── 📄 frontend-service.yaml
-        │   ├── 📄 redis-deployment.yaml
-        │   └── 📄 redis-service.yaml
-        │
-        └── 📁 argocd
-            └── 📄 tetris-app.yaml
+            ├── k8s_files/
+      │   ├── backend-deployment.yaml
+      │   ├── backend-service.yaml
+      │   ├── frontend-deployment.yaml
+      │   ├── frontend-service.yaml
+      │   ├── redis-deployment.yaml
+      │   └── redis-service.yaml
+      ├── argocd/
+      │   └── Application.yaml
+      ├── roles/
+      │   └── argocd/
+      │       ├── tasks/main.yml
+      │       └── files/
+      │           ├── secrets.yaml
+      │           └── Application.yaml
+
 ```
 # ☸️ Kubernetes Resources
 
