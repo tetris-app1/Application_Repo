@@ -1,31 +1,95 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+argocd
+
+An Ansible role to install and configure ArgoCD on a Kubernetes cluster using Helm.  
+The role also configures service exposure, retrieves access credentials, and deploys GitOps resources.
+
+---
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ansible 2.9+
+- Kubernetes cluster running and accessible
+- Valid kubeconfig file (example: /home/lina/.kube/config)
+- Helm installed on the control machine
+- kubectl installed on the control machine
+- Internet access to download ArgoCD Helm chart
+
 
 Role Variables
 --------------
+        kubeconfig_path--> Path to the kubeconfig file used to access the Kubernetes cluster.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+What This Role Does
+====================
+
+1- Adds the official ArgoCD Helm repository.
+
+2- Installs ArgoCD in the argocd namespace.
+
+3- Patches argocd-server service to type LoadBalancer.
+
+4- Retrieves the external IP of ArgoCD.
+
+5- Retrieves the initial admin password.
+
+6- Displays ArgoCD login information.
+
+7- Applies repository secret configuration (secrets.yaml).
+
+8- Deploys Application or ApplicationSet (Application.yaml).
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Dependencies
+
+No external Galaxy role dependencies.
+
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+       
+        - hosts: localhost
+          become: false
+          roles:
+            - role: argocd
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Accessing ArgoCD
+=================
+After successful execution:
+
+    URL: https://<LoadBalancer-IP>
+    
+    Username: admin
+    
+    Password: (Automatically retrieved from secret)
+
+You can also retrieve the password manually:
+
+    kubectl -n argocd get secret argocd-initial-admin-secret \
+    -o jsonpath="{.data.password}" | base64 --decode
+
+Files Required Inside Role
+=========================
+    roles/
+      argocd/
+        tasks/main.yml
+        files/secrets.yaml
+        files/Application.yaml
+        README.md
+
+
+secrets.yaml → Git repository credentials
+
+Application.yaml → ArgoCD Application or ApplicationSet definition
+
 
 License
 -------
@@ -34,5 +98,4 @@ BSD
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Lina Mohamed
