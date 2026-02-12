@@ -19,7 +19,7 @@
    - Frontend
    - Redis
 
-5- 🔁 ArgoCD Application
+5- 🔁 Ansible Automation for ArgoCD Deployment
 
 6- 🚀 Deployment Steps
 
@@ -138,7 +138,7 @@
     TCP check on port 6379
 
 
-# 🔁 ArgoCD Application
+# 🔁 Ansible Automation for ArgoCD Deployment
 
 📍 File: argocd/tetris-app.yaml
 
