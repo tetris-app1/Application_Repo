@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis.default.svc.cluster.local
+  name: redis
 spec:
   selector:
      app: redis
